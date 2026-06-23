@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="src/DevSkill.Shop.Application/DevSkill.Shop.Application.csproj" />
+  <Project Path="src/DevSkill.Shop.Domain/DevSkill.Shop.Domain.csproj" />
+  <Project Path="src/DevSkill.Shop.Infrastructure/DevSkill.Shop.Infrastructure.csproj" />
+  <Project Path="src/DevSkill.Shop.Web/DevSkill.Shop.Web.csproj" />
+</Solution>

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "DevSkill.Shop.Application": {
+      "commandName": "Project"
+    },
+    "Profile 1": {
+      "commandName": "Project"
+    }
+  }
+}
