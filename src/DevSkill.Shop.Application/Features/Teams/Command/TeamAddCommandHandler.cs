@@ -18,13 +18,22 @@ namespace DevSkill.Shop.Application.Features.Teams.Command
 
         public async Task<Team> Handle(TeamAddCommand command, CancellationToken cancellationToken)
         {
-            var team = _mapper.Map<Team>(command);
-            team.Id = IdentityGenerator.NewSequentialGuid();
+            var isDuplicateName = await _unitOfWork.TeamRepository.IsDuplicateTeamName(command.Name, cancellationToken);
 
-            await _unitOfWork.TeamRepository.AddAsync(team);
-            await _unitOfWork.SaveAsync();
+            if (!isDuplicateName)
+            {
+                var team = _mapper.Map<Team>(command);
+                team.Id = IdentityGenerator.NewSequentialGuid();
 
-            return team;
+                await _unitOfWork.TeamRepository.AddAsync(team, cancellationToken);
+                await _unitOfWork.SaveAsync();
+
+                return team;
+            }
+            else
+                //throw new DuplicateDataException("Team  name is duplicate");
+                throw new Exception("Team name is duplicate");
+
         }
     }
 }

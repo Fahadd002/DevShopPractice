@@ -7,6 +7,7 @@ using DevSkill.Shop.Infrastructure.Extensions;
 using DevSkill.Shop.Web;
 using Serilog;
 using System.Reflection;
+using Mapster;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.File("Logs/web-log-.log", rollingInterval: RollingInterval.Day)
@@ -40,11 +41,25 @@ try
     });
     #endregion
 
+    #region Cortext Mediator Configuration
+
     builder.Services.AddCortexMediator(
         new[] { typeof(Program), typeof(TeamAddCommand) },
         option => option.AddDefaultBehaviors()
         );
+    #endregion
 
+    #region Mapster Configuration
+    // Custom Configuration
+    //var config = TypeAdapterConfig.GlobalSettings;
+    //config.Scan(typeof(MapsterConfiguration).Assembly);
+    //builder.Services.AddSingleton(config);
+    //builder.Services.AddScoped<IMapper, ServiceMapper>();
+
+    // Default Configuration
+    builder.Services.AddMapster();
+
+    #endregion
 
     #region DbContext Configuration
     builder.Services.AddDbContext(connectionString, migrationAssembly!);
